@@ -1,0 +1,14 @@
+CREATE OR REPLACE PROCEDURE EvidencijaKoriscenjaUsluga
+(
+@Od Date,
+@Do Date
+)
+BEGIN
+
+SELECT rac.rac_iznos_sa_porezom, rac.rac_porez, vu.vu_naziv as "Vrsta usluge", count(*) as Broj_usluga FROM RACUN rac join KUPLJENI_ARTIKLI_SA_PONUDE ka on ka.rac_oznaka = rac.rac_oznaka join CJENOVNIK_USLUGA cje on
+cje.cje_oznaka=ka.cje_oznaka and cje.ag_oznaka = ka.ag_oznaka join KLIJENT kl on kl.kl_oznaka = rac.kl_oznaka join TIP_KLIJENTA tk on
+tk.tk_oznaka = kl.tk_oznaka join ZAPOSLENI zap on zap.zap_oznaka = cje.zap_oznaka join VOZILO voz on
+voz.VOZ_REGISTARSKI_BROJ = cje.VOZ_REGISTARSKI_BROJ join VRSTA_USLUGA vu on vu.vu_oznaka = cje.vu_oznaka group by vu.vu_oznaka, vu.vu_naziv, rac.rac_iznos_sa_porezom, rac.rac_porez
+where rac.rac_datum_izdavanja >= @Od and rac.rac_datum_izdavanja <= @Do
+
+END

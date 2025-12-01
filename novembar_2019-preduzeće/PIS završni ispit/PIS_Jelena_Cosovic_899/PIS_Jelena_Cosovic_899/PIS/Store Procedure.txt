@@ -1,0 +1,2 @@
+SELECT * FROM NARUDZBA WHERE ID_ROBE NOT IN (sELECT ID_ROBE FROM ODJAVA)
+SELECT ID_robe, Kolicina, Jedinicna_cijena FROM ODJAVA WHERE Mjesec_odjave=Zadati_mjesec

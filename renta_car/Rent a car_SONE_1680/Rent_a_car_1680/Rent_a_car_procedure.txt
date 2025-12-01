@@ -1,0 +1,14 @@
+CREATE OR REPLACE PROCEDURE EvidencijaKoriscenjaUsluga
+{
+@Od Date,
+@Do Date
+}
+
+BEGIN
+
+Select us.cijena_sa_porezom, us.porez_iznos,tu.naziv as "Tip usluge",count(*) as broj_usluga FROM USLUGA us
+join TIP_USLUGE tu on tu.identifikator = us.tu_identifikator join CIJENOVNIK cij on tu.identifikator = cij.tu_identifikator
+join KORISNIK kor on kor.kor_identifikator = us.kor_identifikator join TIP_KORISNIKA tk on tk.tip_korisnika_identifikator = kor.tip_korisnika_identifikator join ZAPOSLENI zap on zap.identifikator = cij.zap_identifikator join VOZILO voz on voz.identifikator = rac.voz_identifikator GROUP BY tu.identifikator, tu.naziv, us.cijena_sa_porezom, us.porez_iznos
+where us.datum_izdavanja >=@Od and us.datum_izdavanja<=@Do
+
+END

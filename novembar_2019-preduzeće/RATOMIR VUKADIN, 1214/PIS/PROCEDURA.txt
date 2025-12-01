@@ -1,0 +1,24 @@
+CREATE PROCEDURE generisiIzvjestaj
+
+       @datumOd DATE,
+	   @datumDo DATE,
+	   @vrstaUsluge INTEGER
+	   @identifikatorKlijenta VARCHAR
+	   
+SET NOCOUNT AS
+
+BEGIN
+
+	SELECT dbo.USLUGA.OPIS_USLUGE AS "Usluga",
+	dbo.USLUGA.CIJENA_USLUGE AS "Cijena usluge",
+	dbo.KLIJENT_FIZICKO_LICE.IME AS "Ime klijenta",
+	dbo.KLIJENT_FIZICKO_LICE.PREZIME AS "Prezime klijenta"
+	(dbo.USLUGA.CIJNEA_USLUGE + dbo.USLUGA.CIJENA_USLUGE*dbo.USLUGA.POREZ) AS "Cijena sa porezom"
+	
+	FROM dbo.USLUGA, dbo.KLIJENT_FIZICKO_LICE WHERE 
+	dbo.USLUGA.VaziOd > ToDate(@datumOd, "gggg-mm-dd") 
+	AND dbo.USLUGA.VaziDo < ToDate(@datumDo, "gggg-mm-dd")
+	AND dbo.USLUGA.TipUsluge = @vrstaUsluge
+	AND dbo.KLIJENT_FIZICKO_LICE.BROJ_LICNE_KARTE = @identifikatorKlijenta
+	
+END 

@@ -1,0 +1,24 @@
+CREATE PROC listaUslugaZaInterval
+@pocetak DATE,
+@kraj DATE
+AS
+BEGIN
+	SELECT na.Ime + ' ' + na.Prezime AS "Korisnik",
+	usluge.usluga AS "Usluga",
+	COUNT(usluga_id) AS "Broj pruzenih usluga",
+	SUM(uda.cijena) AS "Cijena bez poreza",
+	SUM(uda.cijena * (1 + uda.[Stopa poreza]) AS "Cijena sa porezom"
+	FROM [Ugovor aranzmana] ua
+	INNER JOIN [Odabrane usluge] ou
+	ON ou.aranzman_id = ua.aranzman_id
+	INNER JOIN [usluga datog aranzmana] uda
+	ON uda.usluga_id= ou.usluga_id
+	INNER JOIN Usluge usluge
+	ON usluge.usluga_id = uda.usluga_id
+	INNER JOIN [Nosioc aranzmana] na
+	ON na.JMBG = ua.JMBG
+	WHERE ua.datum_aranzmana >=@pocetak
+	and ou.JMBG = ua.JMBG
+	AND ua.datum_aranzmana <=@kraj
+	GROUP BY  usluge.usluga, JMBG
+END

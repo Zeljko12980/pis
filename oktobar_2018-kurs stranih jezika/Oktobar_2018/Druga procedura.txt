@@ -1,0 +1,25 @@
+CREATE PROC polazniciPravoSticanjeSertifikata
+AS
+BEGIN
+
+SELECT p.Ime + ' ' + p.Prezime  AS Polaznik,
+Kurs + ' ' + k.skolska_godina AS Kurs, 
+j.Jezik  AS jezik, 
+nj.Nivo AS Nivo, 
+sk.br_poena AS "Ostvaren broj poena", 
+sk.br_poena / 100 AS "Ostvaren broj poena %"
+FROM Polaznik p
+INNER JOIN [Slusa kurs] sk
+ON p.id_osobe = sk.id_osobe
+INNER JOIN Kurs k
+ON sk.sifra_kursa = k.sifra_kursa
+INNER JOIN [Tipovi kurseva] tk
+ON tk.id_kursa = k.id_kursa
+INNER JOIN Jezik j
+ON j.sifra_jezika = tk.sifra_jezika
+INNER JOIN [Nivo Jezika] nj
+ON nj.sifra_jezika = j.sifra_jezika
+
+WHERE sk.br_poena > nj.min
+
+END

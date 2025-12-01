@@ -1,0 +1,9 @@
+CREATE PROCEDURE [dbo].[evidencija_aranzmana_za_sezonu]
+AS
+BEGIN
+ SELECT naziv_drzave AS "Naziv drzave",naziv_mjesta AS "Naziv mjesta",naziv_objekta AS "Naziv objekta",a.id_aranzman AS "Aranzman",a.datum_do AS "Datum od",a.datum_do  AS "Datum do",  DATEDIFF(DAY, a.datum_od,a.datum_do) AS "Period" FROM Aranzman a INNER JOIN
+ Turisticki_objekat t_o ON a.id_turisticki_objekat=t_o.id_turisticki_objekat INNER JOIN
+ Turisticko_mjesto t_m ON t_o.id_turisticko_mjesto=t_m.id_turisticko_mjesto INNER JOIN
+ opstina o ON o.id_opstina=t_m.id_opstina AND o.id_drzava=t_m.id_drzava	INNER JOIN
+ Drzava d ON d.id_drzava=o.id_drzava
+END

@@ -1,0 +1,16 @@
+CREATE PROC evidencija takmicenja
+AS
+BEGIN
+	SELECT t.naziv, k.naziv, i.ime, i.Prezime
+	FROM [Takmicenja (Liga)] t
+	INNER JOIN Utakmica u
+	ON u.[ID takmicenja] = t.[ID takmicenja]
+	INNER JOIN [Klubovi Utakmice] ku
+	ON ku.[ID utakmice] = k.[ID utakmice]
+	INNER JOIN Klubovi k
+	ON ku.[ID kluba] = k.[ID kluba]
+	INNER JOIN [Istorija igraca] ii
+	ON ii.[ID kluba] = k.[ID kluba]
+	WHERE u.[Datum odrzavanja] > ii.Od
+	AND u.[Datum odrzavanja] < ii.Do
+END

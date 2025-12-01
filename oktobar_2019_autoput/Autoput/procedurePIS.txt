@@ -1,0 +1,60 @@
+#Unos u cjenovnik
+
+CREATE PROCEDURE CjeovnikInsert (@ikategorija_id          INTEGER,  
+                                          @poreklo_vozila_id    INTEGER,  
+                                          @valuta_id    INTEGER
+)
+AS
+	BEGIN
+
+		INSERT INTO Cjenovnik (Id, IznosPutarine, KategorijaId, PorekloId, ValutaId) values (56.00, @kategorija_id, 		@poreklo_vozila_id, @valuta?id);
+
+	END
+GO
+
+
+
+
+
+
+
+#Prikaz cjenovnika
+
+CREATE PROCEDURE CjeovnikPregled (@ikategorija_id          INTEGER,  
+                                          @poreklo_vozila_id    INTEGER,  
+                                          @valuta_id    INTEGER
+)
+AS
+	BEGIN
+
+		SELECT IznosPutarine, NazivKategorije, NazivPorekla, NazivValute
+		FROM Cjenovnik c
+		LEFT JOIN KategorijaVozila k on c.KategorijaVozilaId=k.KategorijaVozilaId
+		LEFT JOIN PoreloVozia p on c.PorekloVozlaId=p.PorekloVozilaId
+		LEFT  JOIN Valuta v on c.ValutaId=v.ValutaId;
+
+	END
+GO
+
+
+
+
+
+
+#Prikaz izvrsenih naplata
+
+CREATE PROCEDURE PutarinePregled
+
+AS
+	BEGIN
+
+		SELECT VrijemeNaplate, IznosPutarine, NazivKategorije, NazivPorekla, NazivValute
+		FROM Putarina p
+		LEFT JOIN Cjenovnik c on p.CjenovnikId=c.CjenovnikId
+		LEFT JOIN KategorijaVozila k on c.KategorijaVozilaId=k.KategorijaVozilaId
+		LEFT JOIN PoreloVozia p on c.PorekloVozlaId=p.PorekloVozilaId
+		LEFT  JOIN Valuta v on c.ValutaId=v.ValutaId
+		WHERE DATE(VrijemeNaplate)=DATE(GETDATE());
+
+	END
+GO

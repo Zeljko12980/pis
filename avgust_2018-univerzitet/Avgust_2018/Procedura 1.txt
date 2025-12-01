@@ -1,0 +1,18 @@
+CREATE PROC obaveze
+@nastavnik_id varchar(6)
+AS
+BEGIN
+	SELECT ps.Naziv, sc.[vid nastave], sc.Pocetak, sc.Kraj,
+	COUNT(n.index) AS 'Ukupno studenata'
+	FROM Nastavnik n
+	INNER JOIN [Struktura casova] sc
+	ON sc.nastavnik_id = n.nastavnik_id
+	INNER JOIN [Nastavni predmeti] np
+	ON np.katedra_id = sc.katedra_id 
+	AND np.sifra = sc.sifra
+	INNER JOIN [Predmeti sifra] ps
+	ON ps.sifra = np.sifra
+	INNER JOIN Nastava n
+	ON n.cas_id = sc.cas_id
+	GROUP BY(n.index)
+END

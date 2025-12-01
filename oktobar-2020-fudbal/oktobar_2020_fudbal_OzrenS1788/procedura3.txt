@@ -1,0 +1,12 @@
+CREATE PROCEDURE [dbo].[evidencija_lige]
+	@pocetakDatuma DATE,
+	@krajDatuma DATE
+AS
+BEGIN
+	SELECT u.id_liga,k.naziv_kluba,i.ime,i.prezime  FROM ucesvuju u INNER JOIN Klub k ON 
+	k.id_klub=u.id_klub INNER JOIN Igrač i ON
+	i.id_klub=k.id_klub INNER JOIN Utakmica ut ON ut.id_liga=u.id_liga
+	WHERE ut.datum_i_vrijeme_utakmice 
+	BETWEEN @pocetakDatuma AND @krajDatuma
+
+END

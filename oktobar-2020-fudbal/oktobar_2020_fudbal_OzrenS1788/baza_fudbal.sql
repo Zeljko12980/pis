@@ -1,0 +1,804 @@
+ÿş/*==============================================================*/
+/* DBMS name:      Microsoft SQL Server 2017                    */
+/* Created on:     17.11.2021. 18:30:39                         */
+/*==============================================================*/
+
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('Igraè'and o.name = 'FK_IGRAÈ_TRENUTNO__KLUB')
+alter table Igraè
+   drop constraint FK_IGRAÈ_TRENUTNO__KLUB
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('Klub') and o.name = 'FK_KLUB_SJEDISTE_GRAD')
+alter table Klub
+   drop constraint FK_KLUB_SJEDISTE_GRAD
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('KluboviIgraca'and o.name = 'FK_KLUBOVII_KLUBOVIIG_KLUB')
+alter table KluboviIgraca
+   drop constraint FK_KLUBOVII_KLUBOVIIG_KLUB
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('KluboviIgraca'and o.name = 'FK_KLUBOVII_KLUBOVIIG_IGRAÈ')
+alter table KluboviIgraca
+   drop constraint FK_KLUBOVII_KLUBOVIIG_IGRAÈ
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('Stadion'and o.name = 'FK_STADION_POSJEDUJE_GRAD')
+alter table Stadion
+   drop constraint FK_STADION_POSJEDUJE_GRAD
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('Statistika_igraca'and o.name = 'FK_STATISTI_EVIDENCIJ_NALAZE_P')
+alter table Statistika_igraca
+   drop constraint FK_STATISTI_EVIDENCIJ_NALAZE_P
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('Statistika_igraca'and o.name = 'FK_STATISTI_EVIDENCIJ_UTAKMICA')
+alter table Statistika_igraca
+   drop constraint FK_STATISTI_EVIDENCIJ_UTAKMICA
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('Utakmica') and o.name = 'FK_UTAKMICA_ODIGRA_STADION')
+alter table Utakmica
+   drop constraint FK_UTAKMICA_ODIGRA_STADION
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('Utakmica') and o.name = 'FK_UTAKMICA_RASPOREDJ_LIGA')
+alter table Utakmica
+   drop constraint FK_UTAKMICA_RASPOREDJ_LIGA
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('klub_na_utakmici') and o.name = 'FK_KLUB_NA__KLUB_NA_U_UTAKMICA')
+alter table klub_na_utakmici
+   drop constraint FK_KLUB_NA__KLUB_NA_U_UTAKMICA
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('klub_na_utakmici') and o.name = 'FK_KLUB_NA__KLUB_NA_U_KLUB')
+alter table klub_na_utakmici
+   drop constraint FK_KLUB_NA__KLUB_NA_U_KLUB
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('nalaze_pozicije'and o.name = 'FK_NALAZE_P_IGRA_TREN_IGRAÈ')
+alter table nalaze_pozicije
+   drop constraint FK_NALAZE_P_IGRA_TREN_IGRAÈ
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('nalaze_pozicije'and o.name = 'FK_NALAZE_P_NALAZE_PO_POZICIJE')
+alter table nalaze_pozicije
+   drop constraint FK_NALAZE_P_NALAZE_PO_POZICIJE
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('nalaze_pozicije'and o.name = 'FK_NALAZE_P_NALAZE_PO_KLUB')
+alter table nalaze_pozicije
+   drop constraint FK_NALAZE_P_NALAZE_PO_KLUB
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('pozicioniran') and o.name = 'FK_POZICION_POZICIONI_POZICIJE')
+alter table pozicioniran
+   drop constraint FK_POZICION_POZICIONI_POZICIJE
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('pozicioniran') and o.name = 'FK_POZICION_POZICIONI_IGRAÈ')
+alter table pozicioniran
+   drop constraint FK_POZICION_POZICIONI_IGRAÈ
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ucesvuju') and o.name = 'FK_UCESVUJU_UCESVUJU_KLUB')
+alter table ucesvuju
+   drop constraint FK_UCESVUJU_UCESVUJU_KLUB
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ucesvuju') and o.name = 'FK_UCESVUJU_UCESVUJU2_LIGA')
+alter table ucesvuju
+   drop constraint FK_UCESVUJU_UCESVUJU2_LIGA
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('Grad')
+            and   type = 'U')
+   drop table Grad
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('Igraè')
+            and   name  = 'sklapa_ugovor_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index Igraè.sklapa_ugovor_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('Igraè')
+            and   type = 'U')
+   drop table Igraè
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('Klub')
+            and   name  = 'sjediste_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index Klub.sjediste_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('Klub')
+            and   type = 'U')
+   drop table Klub
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('KluboviIgraca')
+            and   name  = 'KluboviIgraca4_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index KluboviIgraca.KluboviIgraca4_FK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('KluboviIgraca')
+            and   name  = 'KluboviIgraca_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index KluboviIgraca.KluboviIgraca_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('KluboviIgraca')
+            and   type = 'U')
+   drop table KluboviIgraca
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('Liga')
+            and   type = 'U')
+   drop table Liga
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('Pozicije')
+            and   type = 'U')
+   drop table Pozicije
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('Stadion')
+            and   name  = 'posjeduje_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index Stadion.posjeduje_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('Stadion')
+            and   type = 'U')
+   drop table Stadion
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('Statistika_igraca')
+            and   name  = 'evidencija_igraca_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index Statistika_igraca.evidencija_igraca_FK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('Statistika_igraca')
+            and   name  = 'evidencija_igraca_utakmice_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index Statistika_igraca.evidencija_igraca_utakmice_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('Statistika_igraca')
+            and   type = 'U')
+   drop table Statistika_igraca
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('Utakmica')
+            and   name  = 'rasporedjuje_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index Utakmica.rasporedjuje_FK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('Utakmica')
+            and   name  = 'odigra_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index Utakmica.odigra_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('Utakmica')
+            and   type = 'U')
+   drop table Utakmica
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('klub_na_utakmici')
+            and   name  = 'klub_na_utakmici_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index klub_na_utakmici.klub_na_utakmici_FK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('klub_na_utakmici')
+            and   name  = 'klub_na_utakmici2_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index klub_na_utakmici.klub_na_utakmici2_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('klub_na_utakmici')
+            and   type = 'U')
+   drop table klub_na_utakmici
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('nalaze_pozicije')
+            and   name  = 'nalaze_pozicije_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index nalaze_pozicije.nalaze_pozicije_FK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('nalaze_pozicije')
+            and   name  = 'igra_trenutno_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index nalaze_pozicije.igra_trenutno_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('nalaze_pozicije')
+            and   type = 'U')
+   drop table nalaze_pozicije
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('pozicioniran')
+            and   name  = 'pozicioniran_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index pozicioniran.pozicioniran_FK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('pozicioniran')
+            and   name  = 'pozicioniran2_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index pozicioniran.pozicioniran2_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('pozicioniran')
+            and   type = 'U')
+   drop table pozicioniran
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('ucesvuju')
+            and   name  = 'ucesvuju_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index ucesvuju.ucesvuju_FK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('ucesvuju')
+            and   name  = 'ucesvuju2_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index ucesvuju.ucesvuju2_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ucesvuju')
+            and   type = 'U')
+   drop table ucesvuju
+go
+
+/*==============================================================*/
+/* Table: Grad                                                  */
+/*==============================================================*/
+create table Grad (
+   id_grada             int                  not null,
+   naziv                varchar(25)          not null,
+   postanski_broj       int                  not null,
+   broj_stanovnika      int                  not null,
+   constraint PK_GRAD primary key (id_grada)
+)
+go
+
+/*==============================================================*/
+/* Table: Igraè                                                 */
+/*==============================================================*/
+create table Igraè (
+   id_igraca            int                  not null,
+   id_klub              int                  null,
+   ime                  varchar(25         not null,
+   prezime              varchar(25         not null,
+   datum_rodjenja       datetime             not null,
+   adresa_boravka       varchar(50         not null,
+   telefon              varchar(15         null,
+   constraint PK_IGRAÈ primary key (id_igraca)
+)
+go
+
+/*==============================================================*/
+/* Index: sklapa_ugovor_FK                                      */
+/*==============================================================*/
+
+
+
+
+create nonclustered index sklapa_ugovor_FK on Igraè (id_klub ASC)
+go
+
+/*==============================================================*/
+/* Table: Klub                                                  */
+/*==============================================================*/
+create table Klub (
+   id_klub              int                  not null,
+   id_grada             int                  not null,
+   naziv_kluba          varchar(25)          not null,
+   adresa               varchar(50)          not null,
+   telefon              varchar(15)          not null,
+   e_mail               varchar(20)          not null,
+   ziro_racun           numeric(20)          not null,
+   constraint PK_KLUB primary key (id_klub)
+)
+go
+
+/*==============================================================*/
+/* Index: sjediste_FK                                           */
+/*==============================================================*/
+
+
+
+
+create nonclustered index sjediste_FK on Klub (id_grada ASC)
+go
+
+/*==============================================================*/
+/* Table: KluboviIgraca                                         */
+/*==============================================================*/
+create table KluboviIgraca (
+   id_igraca            int                  not null,
+   id_klub              int                  not null,
+   datum_ulaska         datetime             not null,
+   datum_izlaska        datetime             null,
+   constraint PK_KLUBOVIIGRACA primary key (id_igraca, id_klub)
+)
+go
+
+/*==============================================================*/
+/* Index: KluboviIgraca_FK                                      */
+/*==============================================================*/
+
+
+
+
+create nonclustered index KluboviIgraca_FK on KluboviIgraca (id_klub ASC)
+go
+
+/*==============================================================*/
+/* Index: KluboviIgraca4_FK                                     */
+/*==============================================================*/
+
+
+
+
+create nonclustered index KluboviIgraca4_FK on KluboviIgraca (id_igraca ASC)
+go
+
+/*==============================================================*/
+/* Table: Liga                                                  */
+/*==============================================================*/
+create table Liga (
+   id_liga              int                  not null,
+   constraint PK_LIGA primary key (id_liga)
+)
+go
+
+/*==============================================================*/
+/* Table: Pozicije                                              */
+/*==============================================================*/
+create table Pozicije (
+   id_pozicija          int                  not null,
+   naziv_pozicije       varchar(20         not null,
+   opis                 varchar(200)         null,
+   constraint PK_POZICIJE primary key (id_pozicija)
+)
+go
+
+/*==============================================================*/
+/* Table: Stadion                                               */
+/*==============================================================*/
+create table Stadion (
+   id_stadion           int                  not null,
+   id_grada             int                  not null,
+   naziv                varchar(25         not null,
+   adresa               varchar(50         not null,
+   broj_ulaza           int                  not null,
+   constraint PK_STADION primary key (id_stadion)
+)
+go
+
+/*==============================================================*/
+/* Index: posjeduje_FK                                          */
+/*==============================================================*/
+
+
+
+
+create nonclustered index posjeduje_FK on Stadion (id_grada ASC)
+go
+
+/*==============================================================*/
+/* Table: Statistika_igraca                                     */
+/*==============================================================*/
+create table Statistika_igraca (
+   id_klub              int                  null,
+   id_igraca            int                  not null,
+   id_statistika_igraca int                  not null,
+   id_liga              int                  not null,
+   id_stadion           int                  not null,
+   id_utakmica          int                  not null,
+   id_pozicija          int                  null,
+   postigao_golova      int                  not null,
+   crveni_karton        int                  not null,
+   zuti_karton          int                  not null,
+   primio_faulova       int                  not null,
+   zadao_faulova        int                  not null,
+   da_li_je_igrao       bit                  null,
+   constraint PK_STATISTIKA_IGRACA primary key (id_igraca, id_statistika_igraca)
+)
+go
+
+/*==============================================================*/
+/* Index: evidencija_igraca_utakmice_FK                         */
+/*==============================================================*/
+
+
+
+
+create nonclustered index evidencija_igraca_utakmice_FK on Statistika_igraca (id_liga ASC,
+  id_stadion ASC,
+  id_utakmica ASC)
+go
+
+/*==============================================================*/
+/* Index: evidencija_igraca_FK                                  */
+/*==============================================================*/
+
+
+
+
+create nonclustered index evidencija_igraca_FK on Statistika_igraca (id_klub ASC)
+go
+
+/*==============================================================*/
+/* Table: Utakmica                                              */
+/*==============================================================*/
+create table Utakmica (
+   id_liga              int                  not null,
+   id_stadion           int                  not null,
+   id_utakmica          int                  not null,
+   datum_i_vrijeme_utakmice datetime             null,
+   constraint PK_UTAKMICA primary key (id_liga, id_stadion, id_utakmica)
+)
+go
+
+/*==============================================================*/
+/* Index: odigra_FK                                             */
+/*==============================================================*/
+
+
+
+
+create nonclustered index odigra_FK on Utakmica (id_stadion ASC)
+go
+
+/*==============================================================*/
+/* Index: rasporedjuje_FK                                       */
+/*==============================================================*/
+
+
+
+
+create nonclustered index rasporedjuje_FK on Utakmica (id_liga ASC)
+go
+
+/*==============================================================*/
+/* Table: klub_na_utakmici                                      */
+/*==============================================================*/
+create table klub_na_utakmici (
+   id_liga              int                  not null,
+   id_stadion           int                  not null,
+   id_utakmica          int                  not null,
+   id_klub              int                  not null,
+   constraint PK_KLUB_NA_UTAKMICI primary key (id_liga, id_stadion, id_utakmica, id_klub)
+)
+go
+
+/*==============================================================*/
+/* Index: klub_na_utakmici2_FK                                  */
+/*==============================================================*/
+
+
+
+
+create nonclustered index klub_na_utakmici2_FK on klub_na_utakmici (id_liga ASC,
+  id_stadion ASC,
+  id_utakmica ASC)
+go
+
+/*==============================================================*/
+/* Index: klub_na_utakmici_FK                                   */
+/*==============================================================*/
+
+
+
+
+create nonclustered index klub_na_utakmici_FK on klub_na_utakmici (id_klub ASC)
+go
+
+/*==============================================================*/
+/* Table: nalaze_pozicije                                       */
+/*==============================================================*/
+create table nalaze_pozicije (
+   id_klub              int                  not null,
+   id_pozicija          int                  not null,
+   Igr_id_klub          int                  null,
+   id_igraca            int                  null,
+   constraint PK_NALAZE_POZICIJE primary key (id_klub)
+)
+go
+
+/*==============================================================*/
+/* Index: igra_trenutno_FK                                      */
+/*==============================================================*/
+
+
+
+
+create nonclustered index igra_trenutno_FK on nalaze_pozicije (id_igraca ASC)
+go
+
+/*==============================================================*/
+/* Index: nalaze_pozicije_FK                                    */
+/*==============================================================*/
+
+
+
+
+create nonclustered index nalaze_pozicije_FK on nalaze_pozicije (id_pozicija ASC)
+go
+
+/*==============================================================*/
+/* Table: pozicioniran                                          */
+/*==============================================================*/
+create table pozicioniran (
+   id_pozicija          int                  not null,
+   id_igraca            int                  not null,
+   constraint PK_POZICIONIRAN primary key (id_pozicija, id_igraca)
+)
+go
+
+/*==============================================================*/
+/* Index: pozicioniran2_FK                                      */
+/*==============================================================*/
+
+
+
+
+create nonclustered index pozicioniran2_FK on pozicioniran (id_igraca ASC)
+go
+
+/*==============================================================*/
+/* Index: pozicioniran_FK                                       */
+/*==============================================================*/
+
+
+
+
+create nonclustered index pozicioniran_FK on pozicioniran (id_pozicija ASC)
+go
+
+/*==============================================================*/
+/* Table: ucesvuju                                              */
+/*==============================================================*/
+create table ucesvuju (
+   id_klub              int                  not null,
+   id_liga              int                  not null,
+   constraint PK_UCESVUJU primary key (id_klub, id_liga)
+)
+go
+
+/*==============================================================*/
+/* Index: ucesvuju2_FK                                          */
+/*==============================================================*/
+
+
+
+
+create nonclustered index ucesvuju2_FK on ucesvuju (id_liga ASC)
+go
+
+/*==============================================================*/
+/* Index: ucesvuju_FK                                           */
+/*==============================================================*/
+
+
+
+
+create nonclustered index ucesvuju_FK on ucesvuju (id_klub ASC)
+go
+
+alter table Igraè
+   add constraint FK_IGRAÈ_TRENUTNO__KLUB foreign key (id_klub)
+      references Klub (id_klub)
+go
+
+alter table Klub
+   add constraint FK_KLUB_SJEDISTE_GRAD foreign key (id_grada)
+      references Grad (id_grada)
+go
+
+alter table KluboviIgraca
+   add constraint FK_KLUBOVII_KLUBOVIIG_KLUB foreign key (id_klub)
+      references Klub (id_klub)
+go
+
+alter table KluboviIgraca
+   add constraint FK_KLUBOVII_KLUBOVIIG_IGRAÈ foreign key (id_igraca)
+      references Igraè (id_igraca)
+go
+
+alter table Stadion
+   add constraint FK_STADION_POSJEDUJE_GRAD foreign key (id_grada)
+      references Grad (id_grada)
+go
+
+alter table Statistika_igraca
+   add constraint FK_STATISTI_EVIDENCIJ_NALAZE_P foreign key (id_klub)
+      references nalaze_pozicije (id_klub)
+go
+
+alter table Statistika_igraca
+   add constraint FK_STATISTI_EVIDENCIJ_UTAKMICA foreign key (id_liga, id_stadion, id_utakmica)
+      references Utakmica (id_liga, id_stadion, id_utakmica)
+go
+
+alter table Utakmica
+   add constraint FK_UTAKMICA_ODIGRA_STADION foreign key (id_stadion)
+      references Stadion (id_stadion)
+go
+
+alter table Utakmica
+   add constraint FK_UTAKMICA_RASPOREDJ_LIGA foreign key (id_liga)
+      references Liga (id_liga)
+go
+
+alter table klub_na_utakmici
+   add constraint FK_KLUB_NA__KLUB_NA_U_UTAKMICA foreign key (id_liga, id_stadion, id_utakmica)
+      references Utakmica (id_liga, id_stadion, id_utakmica)
+go
+
+alter table klub_na_utakmici
+   add constraint FK_KLUB_NA__KLUB_NA_U_KLUB foreign key (id_klub)
+      references Klub (id_klub)
+go
+
+alter table nalaze_pozicije
+   add constraint FK_NALAZE_P_IGRA_TREN_IGRAÈ foreign key (id_igraca)
+      references Igraè (id_igraca)
+go
+
+alter table nalaze_pozicije
+   add constraint FK_NALAZE_P_NALAZE_PO_POZICIJE foreign key (id_pozicija)
+      references Pozicije (id_pozicija)
+go
+
+alter table nalaze_pozicije
+   add constraint FK_NALAZE_P_NALAZE_PO_KLUB foreign key (id_klub)
+      references Klub (id_klub)
+go
+
+alter table pozicioniran
+   add constraint FK_POZICION_POZICIONI_POZICIJE foreign key (id_pozicija)
+      references Pozicije (id_pozicija)
+go
+
+alter table pozicioniran
+   add constraint FK_POZICION_POZICIONI_IGRAÈ foreign key (id_igraca)
+      references Igraè (id_igraca)
+go
+
+alter table ucesvuju
+   add constraint FK_UCESVUJU_UCESVUJU_KLUB foreign key (id_klub)
+      references Klub (id_klub)
+go
+
+alter table ucesvuju
+   add constraint FK_UCESVUJU_UCESVUJU2_LIGA foreign key (id_liga)
+      references Liga (id_liga)
+go
+  

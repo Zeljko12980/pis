@@ -1,0 +1,14 @@
+CREATE PROC istorijaIgraca
+AS
+BEGIN
+	SELECT i.ime, i.prezime, i.[Broj igraca], p.[Naziv pozicije],k.naziv, ii.Od, ii.Do 
+	FROM Igrac i
+	INNER JOIN [Istorija igraca] ii
+	ON ii.[ID kluba] = i.[ID kluba]
+	AND ii.[ID pozicija] = i.[ID pozicija]
+	AND ii.[Broj igraca] = i.[Broj igraca]
+	INNER JOIN Klubovi k
+	ON i.[ID kluba] = k.[ID kluba]
+	INNER JOIN Pozicija p
+	ON p.[ID pozicije] = i.[ID pozicije]
+END

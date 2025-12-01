@@ -1,0 +1,60 @@
+-- 1.
+
+CREATE OR REPLACE PROCEDURE EVIDENCIJA_ARANZMANA
+(
+@IDTuristickaSezona int
+)
+BEGIN
+    
+    SELECT ts.gd_naziv as Sezona, dr.dr_naziv as Drzava, nm.nm_naziv as Grad, tc.tc_naziv as Turisticki_Centar, ta.tar_od as Od, ta.tar_do as Do from TURISTICKI_ARANZMAN ta join U_SKLOPU us on us.ta_identifikator = ta.ta_identifikator and us.tar_identifikator = ta.tar_identifikator
+    join TURISTICKI_CENTAR tc on tc.tc_identifikator = us.tc_identifikator join NASELJENO_MJESTO nm on nm.nm_identifikator = tc.nm_identifikator and
+    tc.dr_identifikator = nm.dr_identifikator join drzava dr on dr.dr_identifikator = nm.dr_identifikator join SEZONA_ARANZMANA sa on
+    sa.ta_identifikator = ta.ta_identifikator and sa.tar_identifikator = ta.tar_identifikator join TURISTICKA_SEZONA ts
+    on ts.ts_identifikator = sa.ts_identifikator where ts.ts_identifikator = @IDTuristickaSezona and ta.TAR_BROJ_PREOSTALIH_ARANZMANA>0
+END;
+
+-- 2.
+
+CREATE OR REPLACE PROCEDURE EVIDENCIJA_UTISAKA(
+)
+BEGIN
+ 
+ SELECT tu.tut_naziv, ku.ku_komentar, kor.kor_ime, kor.kor_prezime, ta.tar_od, ta.tar_do, ku.ku_ocjena from KNJIGA_UTISAKA ku join TIP_UTISKA tu on tu.tu_identifikator = ku.tu_identifikator join KORISNIK kor on kor.kor_identifikator = ku.kor_identifikator
+ join kupljeni_aranzman ka on ka.ka_identifikator = ku.ka_identifikator join usluge u on u.usl_identifikator ka.usl_identifikator 
+ join turisticki_aranzman ta on ta.ta_identifikator = ka.ta_identifikator and ta.tar_identifikator = ka.tar_identifikator
+END;
+
+
+-- 3. //fali dio sa porezom
+
+CREATE OR REPLACE PROCEDURE EVIDENCIJA_KORISTENJA_USLUGA(
+@Od Date,
+@Do Date
+)
+BEGIN
+ 
+ SELECT ta.tar_od as Od, ta.tar_do as Do, kor.kor_ime as Ime, kor.kor_Prezime as Prezime, COUNT(us.tu_naziv) as Broj_usluga, tu.tu_naziv as Tip_usluge, us.usl_cijena as Cijena from KUPLJENI_ARANZMAN ka join TURISTICKI_ARANZMAN ta on ta.ta_identifikator = ka.ta_identifikator and
+ ta.tar_identifikator = ka.tar_identifikator join USLUGE us on us.usl_identifikator = ka.usl_identifikator join KORISNICI_ARANZMANA koa on
+ koa.ka_identifikator = ka.ka_identifikator join KORISNIK kor on kor.kor_identifikator = koa.kor_identifikator join TIP_USLUGE tu on
+ tu.tu_identifikator = us.tu_identifikator group by tu.tu_identifikator, ta.tar_od, ta.tar_do, kor.kor_ime, kor.kor_Prezime, tu.tu_naziv, us.usl_cijena
+ where ta.ta_od>=@Od and ta.ta_do>=@Do
+END;
+
+
+-- 4.
+
+CREATE OR REPLACE PROCEDURE LISTA_ARANZMANA_PO_OCJENAMA(
+@Drzava char(3),
+@Godina number(4)
+)
+BEGIN
+ 
+ SELECT * from KUPLJENI_ARANZMAN ka join TURISTICKI_ARANZMAN ta on ta.ta_identifikator = ka.ta_identifikator and
+ ta.tar_identifikator = ka.tar_identifikator join knjiga_utisaka ku.ka_identifikator = ka.ka_identifikator 
+ join U_SKLOPU us on us.ta_identifikator = ta.ta_identifikator and us.tar_identifikator = ta.tar_identifikator
+ join TURISTICKI_CENTAR tc on tc.tc_identifikator = us.tc_identifikator join NASELJENO_MJESTO nm on nm.nm_identifikator = tc.nm_identifikator and
+ tc.dr_identifikator = nm.dr_identifikator join drzava dr on dr.dr_identifikator = nm.dr_identifikator join SEZONA_ARANZMANA sa on
+ sa.ta_identifikator = ta.ta_identifikator and sa.tar_identifikator = ta.tar_identifikator join TURISTICKA_SEZONA ts
+ on ts.ts_identifikator = sa.ts_identifikator order by ku.ku_ocijena desc 
+ where dr.dr_identifikator = @Drzava and ts.ts_godina = @Godina
+END;

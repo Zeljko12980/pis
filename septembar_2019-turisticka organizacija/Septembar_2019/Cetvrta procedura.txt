@@ -1,0 +1,26 @@
+CREATE PROC prviArnzmaniPoOjceni
+@drzava_id int,
+@godina int
+AS
+BEGIN
+	SELECT ta.aranzman,ts.sezona, e.ocjena
+	FROM Evidencija e
+	INNER JOIN [Turisticki aranzmani] ta
+	ON ta.aranzman_id = e.aranzman_id
+
+	INNER JOIN [Turisticka agencija] tu_ag
+	ON tu_ag.agencija_id = ta.agencija_id
+	INNER JOIN [Opstina] opstina
+	ON opstina.opstina_id = tu_ag.opstina_id
+	INNER JOIN Grad grad
+	ON grad.grad_id= opstina.grad_id
+	INNER JOIN Drzava drzava
+	ON drzava.drzava_id= grad.drzava_id
+	AND drzava.drzava_id= @drzava_id 
+	INNER JOIN [Turisticka mjesta] tm
+	ON tm.aranzman_id = ta.aranzman_id
+	INNER JOIN [Turisticka sezona] ts
+	ON ts.sezona_id = ta.sezona_id 
+
+	ORDER BY e.Ocjena DESC
+END

@@ -1,0 +1,6 @@
+CREATE PROC podrska_rukovodiocu
+@id_rukovodioca int
+AS
+BEGIN
+
+END

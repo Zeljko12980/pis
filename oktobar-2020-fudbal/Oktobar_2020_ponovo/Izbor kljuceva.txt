@@ -1,0 +1,6 @@
+Kod tabela kod kojih se mogu koristiti znakovne identifikacije za primarne kljuceve su koristeni tipovi varchar.
+U tabelama kod kojih ima veliki broj zapisi i nije moguce generisati znakovne sifre, a da ne dodje do preklapanja,
+koristeni su tipovi longint,short int i number. Takodje koristeni su slozeni primarni kljucevi ako
+logika entiteta to nalaze.
+Za slucaj da se u upitima zahtjevaju datumi, potrebno je odratiti redukciju kljuceva koji povlace datume.
+NPR. u slucaju da treba izlistati sve polaznike tekuceg kursa, da ne dodje do povlacenja podataka od ranijih polaznika.

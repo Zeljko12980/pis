@@ -1,0 +1,22 @@
+CREATE PROCEDURE PregledMagacina (
+	@magacin_id, INTEGER,
+	@start_date, DATE,
+	@end_date, DATE
+)
+AS
+BEGIN
+
+	SELECT
+		p."Naziv_Proizvoda" AS "Naziv",
+		pns."Kolicina_ProizvodNaStanju" AS "Kolicina",
+		CONVERT(DATE, pns."Datum_ProizvodNaStanju") AS "Datum",
+		tu."Naziv_TipUnosa" as "Tip unosa"
+	FROM "ProizvodNaStanju" pns
+	LEFT JOIN "Proizvod" p ON p."ID_Proizvod"=pns."ID_Proizvod"
+	LEFT JOIN "TipUnosa" tu ON tu."ID_TipUnosa"=pns."ID_TipUnosa"
+	WHERE pns."Magacin_ID"=@magacin_id
+		AND pns."Datum_ProizvodNaStanju">=@start_date
+		AND pns."Datum_ProizvodNaStanju"<=@end_date;
+
+END
+GO;

@@ -1,0 +1,18 @@
+CREATE OR REPLACE PROCEDURE Cjenovnik
+{
+
+}
+BEGIN
+SELECT kurs.naziv,nivo.naziv,kurs.broj_casova,kurs.broj_lab_vjezbi,nivo.cijena_po_casu,kurs.cijena FROM kurs join
+on nivo.identifikator = kurs.nivoid
+END
+
+CREATE OR REPLACE PROCEDURE PolazniciZaSertifikat
+{
+
+}
+
+BEGIN
+SELECT polaznici.ime,polaznici.prezime,polaznici.broj_telefona,polaznici.broj_ostvarenih_poena,polaznici.postotak,nivo.maksimalan_broj_poena,nivo.minimalan_broj_poena FROM POLAZNICI join POLAZNIK_NA_KURSU on polaznik_na_kursu.polaznikid = polaznik.identifikator join KURS on kurs.identifikator =polaznik_na_kursu.kursid join NIVO on nivo.identifikator = kurs.nivoid group by kurs.identifikator, kurs.naziv, nivo.id, nivo.naziv
+where polaznici.broj_ostvarenih_poena >= nivo.minimalan_broj_poena
+END

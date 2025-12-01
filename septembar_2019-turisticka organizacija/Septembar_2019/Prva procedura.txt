@@ -1,0 +1,28 @@
+CREATE PROC ponudeAranzmana
+@sezona_id int
+AS
+BEGIN 
+	SELECT ta.aranzman, ts.sezona, ts.godina, drzava.naziv,
+	tm.[Naziv turistickog mjesta], tc.[Naziv centra],trajanje_sif.br_dana
+	FROM [Turisticki aranzmani] ta
+	INNER JOIN [Turisticka sezona] ts
+	ON ts.sezona_id = ts.sezona.id 
+	AND ts.sezona_id  = @sezona_id 
+	INNER JOIN [Turisticka agencija] tu_ag
+	ON tu_ag.agencija_id = ta.agencija_id
+	INNER JOIN [Opstina] opstina
+	ON opstina.opstina_id = tu_ag.opstina_id
+	INNER JOIN Grad grad
+	ON grad.grad_id= opstina.grad_id
+	INNER JOIN Drzava drzava
+	ON drzava.drzava_id= grad.drzava_id
+	INNER JOIN [Turisticka mjesta] tm
+	ON tm.aranzman_id = ta.aranzman_id
+	INNER JOIN [Turisticki centar] tc 
+	ON tc.centar_id = tm.centar_id
+	INNER JOIN [Koliko traje aranzman] koliko_tr
+	ON koliko_tr.aranzman_id = ta.aranzman_id
+	INNER JOIN [Trajanje aranzmana sifarnik] trajanje_sif
+	ON trajanje_sif.trajanje_id = koliko_tr.trajanje_id 
+	WHERE ta.slobodna_mjesta > 0
+END

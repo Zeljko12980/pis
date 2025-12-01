@@ -1,0 +1,16 @@
+CREATE PROCEDURE DohvatiNalogZaNabavku (
+	@broj_radnog_naloga, VARCHAR(30)
+)
+AS
+BEGIN
+
+SELECT kmp."Naziv_Komponente", pa."TrazenaKolicina", kmp."MjernaJedinica", db."NazivDobavljaca"
+FROM "PotraznjaArtikla" pa
+LEFT JOIN "NalogZaNabavku" nzn on pa."ID_NalogZaNabavku"=nzn."ID_NalogZaNabavku"
+LEFT JOIN "RadniNalog" rn on nzn."ID_RadniNalog"=rn."ID_RadniNalog"
+LEFT JOIN "Komponenta" kmp on pa."ID_Komponenta"=kmp."ID_Komponenta"
+LEFT JOIN "Dobavljac" db on pa."ID_Dobavljac"=db."ID_Dobavljac"
+WHERE rn."ID_RadniNalog"=@broj_radnog_naloga;
+
+END
+GO;

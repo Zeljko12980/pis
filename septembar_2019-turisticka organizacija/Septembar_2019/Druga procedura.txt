@@ -1,0 +1,16 @@
+CREATE PROC evidencija_primjedbi
+AS
+BEGIN
+	SELECT ta.aranzman, sifarnik.br_dana, e.utisci, pp.[Tip primjedbe]
+	FROM Evidencija e
+	INNER JOIN [Pohvale i primjedbe] pp
+	ON pp.primjedba_id = e.primjedba_id
+	INNER JOIN [Nosioc aranzmana] n
+	ON e.JMBG = n.JMBG
+	INNER JOIN [Koliko traje aranzman] traje
+	ON traje.aranzman_id = e.aranzman_id
+	INNER JOIN [Trajanje aranzmana sifarnik] sifarnik
+	ON sifarnik.trajanje_id = traje.trajanje_id
+	INNER JOIN [Turisticki aranzmani] ta
+	ON ta.aranzman_id= e.aranzman_id
+END

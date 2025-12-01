@@ -1,0 +1,86 @@
+d. 
+Dakle vecina sistema za upravljanje bazama podataka kreiraju indekse po defaultu za ogranicenja tipa
+Primary i Unique. Tako da su ti indeksi vec kreirani. Sam korisnik nije svjestan postojanja indeksa, vec
+oni samo ubrzavaju operacije pretrazivanja i sortiranja. U bazi podataka se moraju pamtiti svi indeksi bez
+obzira koliko cesto se oni koriste, i prilikom izvrsavanja svakog upita prolazi se kroz indekse i gleda da li 
+oni mogu ubrzati datu operaciju. 
+
+Prema tome da bi se postigla veca efikasnost pri pretrazivanju baze potrebno je izbaciti sve indekse koji se 
+malo ili nikako ne koriste. U ovom slucaju to bi bili indeksi tabela koje se malo pretrazuju i nemaju veliki
+broj redova, takve tabele su na primjer Univerzitet, Departman, Katedra i slicno.
+Sa druge strane ocito je da ce za ovakav sistem najzanimljivije biti vodjenje evidencije, tj. tabela struktura casova,
+u ovoj tabeli bi bilo korisno prosiriti indeksnu strukturu kako bi se mogla voditi
+evidencija o predmetima i studijskim grupama kao i njihovim fondovima casova i slicno. U tu svrhu bi kreirali indekse
+za kolone Od i Do kako bi ubrzali to pretrazivanje.
+
+Naravno sa indeksima treba biti vrlo oprezan jer jedan indeks moze ubrzati jedan upit a drugi znacajno usporiti.
+
+
+----primarni kljucevi-----
+
+Univerzitet - Id(integer) - iz razloga sto moze biti jako puno univerziteta a tacan broj ne znamo
+
+Katedra -  Oznaka(char(1)) - iz razloga sto smatramo da na jednom fakultetu ne moze biti vise od 62 katedre
+
+Odsjek - Znak(char(1)) - iz razloga sto smatramo da na jednom fakultetu ne moze biti vise od 62 odsjeka
+
+Fakultet - Oznaka(char(2)) - iz razloga sto smatramo da na jednom fakultetu ne moze biti vise od 62x62 fakulteta
+
+Departman - Znak(char(1)) - iz razloga sto smatramo da na jednom fakultetu ne moze biti vise od 62 departmana
+
+Nastavnici - Id(integer) - iz razloga sto moze biti jako puno nastavnika, tacan broj ne znamo
+
+Predmeti - Id(char(2)) - iz razloga sto smatramo da na jednom fakultetu ne moze biti vise od 62x62 predmeta
+
+Preduslov - Id(char(1)) - iz razloga sto smatramo da na jednom fakultetu ne moze biti vise od 62 preduslova
+
+Studenti - index(integer) - iz razloga sto moze biti jako puno studenata a tacan broj ne znamo
+
+Studijska grupa - Oznaka(char(2)) - iz razloga sto smatramo da na jednom fakultetu ne moze biti vise od 62x62 studijske grupe
+
+Struktura casova - Primarni kljucevi Nastavnika, Predmeta i Studijske grupe - Nije potrebno kreirati tabelu i 
+upisati neku kolonu kao primaran kljuc jer vec ova kombinacija primarnih kljuceva dovoljno i jednoznacno 
+opisuje redove ove tabele
+
+Prijavljeni studenti - Primaran kljuc studenta i strukture casova 
+
+
+f.1.
+
+create procedure ObavezeNastavnika
+
+   @idNastavnika Integer
+
+set nocount as
+
+begin
+
+   select np.naziv,sc.[vid nastave], sc.od, sc.do,
+   count(ps.oznka_grupe,ps.Id_nastavnika,ps.predmet_id) as 'Ukupno studenata'
+   from [Struktura casova] sc
+   inner join Nastavnici n on sc.nastavnik_id = n.Id and n.oznaka_katedre = sc.oznaka_katedre
+   inner join [Nastavni predmet] np on np.Id = sc.predmet_id and np.oznaka_katedre = sc.oznaka_katedre
+   inner join [Prijavljeni studenti] ps on ps.oznka_grupe = sc.oznka_grupe and ps.Id_nastavnika = sc.Id_nastavnika and ps.predmet_id = sc.predmet_id
+   group by(ps.oznka_grupe,ps.Id_nastavnika,ps.predmet_id) 
+
+end
+
+f.2.
+
+create procedure listaPredmeta
+   
+    @datumOd Date,
+    @datumDo Date
+
+begin
+
+   select np.naziv, sg.oznaka, n.id, count(ps.oznka_grupe,ps.Id_nastavnika,ps.predmet_id) as 'Ukupno studenata'
+   from [Struktura casova] sc
+   inner join Nastavnici n on sc.nastavnik_id = n.Id and n.oznaka_katedre = sc.oznaka_katedre
+   inner join [Nastavni predmet] np on np.Id = sc.predmet_id and np.oznaka_katedre = sc.oznaka_katedre
+   inner join [Prijavljeni studenti] ps on ps.oznka_grupe = sc.oznka_grupe and ps.Id_nastavnika = sc.Id_nastavnika and ps.predmet_id = sc.predmet_id
+   inner join [Studijska grupa] sg on sg.oznaka = sc.oznaka_grupe
+   where sc.od > ToDate(@datumOd , "gggg-mm-dd") and
+    sc.do < ToDate(@datumDo , "gggg-mm-dd")
+   group by(ps.oznka_grupe,ps.Id_nastavnika,ps.predmet_id) 
+end

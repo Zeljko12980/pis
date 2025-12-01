@@ -1,0 +1,56 @@
+b.) Izbor i struktura primarnih kljuceva
+
+Agencija - Oznaka - Integer -> Za tip podataka primarnog kljuca uzeli smo Integer tip iz razloga
+sto je moguce imati jako veliki broj poslovnica te ne mozemo predvidjeti koji opseg jedinstvenih
+kljuceva ce biti dovoljan.
+
+Drzava - Oznaka - Char(3)- Za primarni kljuc drzave uzimamo 3 karaktera koji  dogovorenom globalnom
+standardu za sifarnik drzava
+
+Naseljeno mjesto - Oznaka - Za primarni kljuc naseljenog mjesta uzimamo 3 karaktera prema usvojenom standardu
+sifrovanja cime mozemo unijeti 62x62x62 naseljenih mjesta unutar jedne drzave sto je vise no dovoljno
+
+Vozilo - Oznaka - Varchar(12) - Za primarni kljuc uzimamo jedinstveni primarni kljuc koji se u zakonu
+koristi za identifikaciju registrovanih vozila
+
+Tip vozila - Oznaka - Char(1) - Pretpostavljamo da je maximalan broj tipova vozila ne prelazi 62
+koliki je broj razlicitih kljuceva koje mozemo unijeti koristeci jedan karakter
+
+Model vozila - Oznaka - Char(2) - Pretpostavljamo da je maximalan broj modela vozila ne prelazi 62x62
+koliki je broj razlicitih kljuceva koje mozemo unijeti koristeci dva karaktera
+
+Dodatna oprema - Oznaka Char(1) - Za kljuc uzimamo jedan karakter cime pretpostavljamo da ce broj
+od 62 komponente opreme jednog vozila biti sasvim dovoljne 
+
+Zaposleni - Oznaka Char(3) - Za kljuc uzimamo 3 karaktera cime postavljamo maksimalan broj zaposlenih
+jedne poslovnice na 62x62x62
+
+Radno mjesto - Oznaka Char(2) - Za kljuc uzimamo 2 karaktera i time kazemo da je maksimalan broj
+radnih mijesta u sifarniku 62x62
+
+Cjenovnik usluga - Oznaka Integer - Za primarni kljuc stavki cjenovnika uzeli smo Integer iz razloga
+sto ne mozemo predviditi njihov konacan broj s obzirom da je njihov rast s vremenom neizbjezan
+a evidencija o starim ponudama mora da ostane u bazi.
+
+Racun - Oznaka Integer - 		-     II       -
+
+
+-- Potencijalna redukcija indeksne strukture kod formiranja logickog/fizickog modela seme baze
+za slucaj da se zahtjevaju upiti sa datumskim intervalima
+
+Vecina sistema za upravljanje bazama podataka kreiraju indexe po defaultu za ogranicenje tipa Primary,
+Unique. Tako da su indexi vec kreirani. Sam korisnik nije svjestan postojanja indexa i njihov cilj je ubrzati
+operacije pretrazivanja i sortiranja ukoliko je to moguce. U bazi podataka se moraju pamtiti svi indexi
+bez obzira koliko se oni cesto koriste i prilikom izvrsenja upita prolazi se kroz indexne i gleda da li oni
+mogu ubrzati operaciju.
+
+Prema tome da bi se postigla veca efikasnost pri pretrazivanju baze potrebno je izbaciti sve indexe koji se
+malo ili nikako ne koriste. U ovom slucaju to bi bili indexi tabela koje se malo pretrazuju i nemaju
+veliki broj redova takve tabele su na primer Agencija, Model, Tip vozila, Drzava, Naseljeno mjesto, Tip klijenta,
+Vrsta usluge itd.
+
+
+
+
+
+

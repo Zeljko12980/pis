@@ -1,0 +1,16 @@
+CREATE PROCEDURE [dbo].[pregled_ostvarenih_certifikata]
+
+AS
+BEGIN
+	SELECT ime_polaznika AS "Ime polaznika",
+			prezime_polaznika AS "Prezime polaznika",
+			id_polaznik AS "Identifikator polaznika",
+			pri.id_kursa AS "Na kursu",
+			Jezik,
+			Nivo AS "Nivo jezika",
+			broj_bodova_na_kursu AS "Ostvareni bodovi"
+			FROM Polaznik p INNER JOIN Prijava pri ON p.id_prijava=pri.id_prijava
+			INNER JOIN Kurs k ON k.id_kursa=pri.id_kursa INNER JOIN Jezik j ON k.id_kursa=j.Jezik
+			WHERE p.broj_bodova_na_kursu>k.maksimalan_broj_bodova
+
+END

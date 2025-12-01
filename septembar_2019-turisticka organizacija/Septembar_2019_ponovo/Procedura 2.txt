@@ -1,0 +1,18 @@
+CREATE PROC utisci
+AS
+BEGIN
+
+SELECT eka.Utisak, tu.Tip, na.Ime, na.Prezime, su.[Naziv usluge], naran.Datum
+FROM [Evidencija korisnika aranzmana] eka
+INNER JOIN [Tip utiska] tu
+ON tu.[ID utiska] = eka.[ID utiska]
+INNER JOIN [Nosioc aranzmana] na
+ON na.JMBG = eka.JMBG
+INNER JOIN [Narucivanje aranzmanja] naran
+ON naran.[ID aranzmana] = eka.[ID aranzmana]
+INNER JOIN [Usluge aranzmana] ua
+ON ua.[ID aranzmana] = naran.[ID aranzmana]
+INNER JOIN [Spisak usluga] su
+ON su.[ID usluge] = ua.[ID usluge]
+
+END

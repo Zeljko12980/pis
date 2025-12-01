@@ -1,0 +1,1033 @@
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('KORISNICI_ARANZMANA') and o.name = 'FK_KORISNIC_KORISNICI_KORISNIK')
+alter table KORISNICI_ARANZMANA
+   drop constraint FK_KORISNIC_KORISNICI_KORISNIK
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('KORISNICI_ARANZMANA') and o.name = 'FK_KORISNIC_KORISNICI_KUPLJENI')
+alter table KORISNICI_ARANZMANA
+   drop constraint FK_KORISNIC_KORISNICI_KUPLJENI
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('KORISNIK') and o.name = 'FK_KORISNIK_TIPIZACIJ_TIP_KORI')
+alter table KORISNIK
+   drop constraint FK_KORISNIK_TIPIZACIJ_TIP_KORI
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('KUPLJENI_ARANZMAN') and o.name = 'FK_KUPLJENI_IZ_PONUDE_TURISTIC')
+alter table KUPLJENI_ARANZMAN
+   drop constraint FK_KUPLJENI_IZ_PONUDE_TURISTIC
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('NASELJENO_MJESTO') and o.name = 'FK_NASELJEN_NASELJENO_DRZAVA')
+alter table NASELJENO_MJESTO
+   drop constraint FK_NASELJEN_NASELJENO_DRZAVA
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('NUDI') and o.name = 'FK_NUDI_NUDI_TURISTIC')
+alter table NUDI
+   drop constraint FK_NUDI_NUDI_TURISTIC
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('NUDI') and o.name = 'FK_NUDI_NUDI2_TURISTIC')
+alter table NUDI
+   drop constraint FK_NUDI_NUDI2_TURISTIC
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('NUDI_USLUGE') and o.name = 'FK_NUDI_USL_NUDI_USLU_USLUGE')
+alter table NUDI_USLUGE
+   drop constraint FK_NUDI_USL_NUDI_USLU_USLUGE
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('NUDI_USLUGE') and o.name = 'FK_NUDI_USL_NUDI_USLU_TURISTIC')
+alter table NUDI_USLUGE
+   drop constraint FK_NUDI_USL_NUDI_USLU_TURISTIC
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('PODLJEZE_POREZU') and o.name = 'FK_PODLJEZE_PODLJEZE__POREZ')
+alter table PODLJEZE_POREZU
+   drop constraint FK_PODLJEZE_PODLJEZE__POREZ
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('PODLJEZE_POREZU') and o.name = 'FK_PODLJEZE_PODLJEZE__USLUGE')
+alter table PODLJEZE_POREZU
+   drop constraint FK_PODLJEZE_PODLJEZE__USLUGE
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('TURISTICKA_SEZONA') and o.name = 'FK_TURISTIC_PRIPADA_GODISNJE')
+alter table TURISTICKA_SEZONA
+   drop constraint FK_TURISTIC_PRIPADA_GODISNJE
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('TURISTICKI_ARANZMAN') and o.name = 'FK_TURISTIC_IMA_U_PON_TURISTIC')
+alter table TURISTICKI_ARANZMAN
+   drop constraint FK_TURISTIC_IMA_U_PON_TURISTIC
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('TURISTICKI_CENTAR') and o.name = 'FK_TURISTIC_TURISTICK_NASELJEN')
+alter table TURISTICKI_CENTAR
+   drop constraint FK_TURISTIC_TURISTICK_NASELJEN
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('USLUGE') and o.name = 'FK_USLUGE_TIPIZACIJ_TIP_USLU')
+alter table USLUGE
+   drop constraint FK_USLUGE_TIPIZACIJ_TIP_USLU
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('USLUGE_KUPLJENOG_ARANZMANA') and o.name = 'FK_USLUGE_K_USLUGE_KU_KUPLJENI')
+alter table USLUGE_KUPLJENOG_ARANZMANA
+   drop constraint FK_USLUGE_K_USLUGE_KU_KUPLJENI
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('USLUGE_KUPLJENOG_ARANZMANA') and o.name = 'FK_USLUGE_K_USLUGE_KU_USLUGE')
+alter table USLUGE_KUPLJENOG_ARANZMANA
+   drop constraint FK_USLUGE_K_USLUGE_KU_USLUGE
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('UTISCI_KORISNIKA') and o.name = 'FK_UTISCI_K_KORISNIK__KORISNIK')
+alter table UTISCI_KORISNIKA
+   drop constraint FK_UTISCI_K_KORISNIK__KORISNIK
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('UTISCI_KORISNIKA') and o.name = 'FK_UTISCI_K_TIPIZACIJ_TIP_UTIS')
+alter table UTISCI_KORISNIKA
+   drop constraint FK_UTISCI_K_TIPIZACIJ_TIP_UTIS
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('UTISCI_KORISNIKA') and o.name = 'FK_UTISCI_K_UTISAK_NA_KUPLJENI')
+alter table UTISCI_KORISNIKA
+   drop constraint FK_UTISCI_K_UTISAK_NA_KUPLJENI
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('U_TURISTICKOM_CENTRU') and o.name = 'FK_U_TURIST_U_TURISTI_TURISTIC')
+alter table U_TURISTICKOM_CENTRU
+   drop constraint FK_U_TURIST_U_TURISTI_TURISTIC
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('U_TURISTICKOM_CENTRU') and o.name = 'FK_U_TURIST_U_TURISTI_TURISTIC')
+alter table U_TURISTICKOM_CENTRU
+   drop constraint FK_U_TURIST_U_TURISTI_TURISTIC
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('DRZAVA')
+            and   type = 'U')
+   drop table DRZAVA
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('GODISNJE_DOBA')
+            and   type = 'U')
+   drop table GODISNJE_DOBA
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('KORISNICI_ARANZMANA')
+            and   name  = 'KORISNICI_ARANZMANA_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index KORISNICI_ARANZMANA.KORISNICI_ARANZMANA_FK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('KORISNICI_ARANZMANA')
+            and   name  = 'KORISNICI_ARANZMANA2_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index KORISNICI_ARANZMANA.KORISNICI_ARANZMANA2_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('KORISNICI_ARANZMANA')
+            and   type = 'U')
+   drop table KORISNICI_ARANZMANA
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('KORISNIK')
+            and   name  = 'TIPIZACIJA_KORISNIKA_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index KORISNIK.TIPIZACIJA_KORISNIKA_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('KORISNIK')
+            and   type = 'U')
+   drop table KORISNIK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('KUPLJENI_ARANZMAN')
+            and   name  = 'IZ_PONUDE_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index KUPLJENI_ARANZMAN.IZ_PONUDE_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('KUPLJENI_ARANZMAN')
+            and   type = 'U')
+   drop table KUPLJENI_ARANZMAN
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('NASELJENO_MJESTO')
+            and   name  = 'NASELJENO_MJESTO_U_DRZAVI_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index NASELJENO_MJESTO.NASELJENO_MJESTO_U_DRZAVI_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('NASELJENO_MJESTO')
+            and   type = 'U')
+   drop table NASELJENO_MJESTO
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('NUDI')
+            and   name  = 'NUDI_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index NUDI.NUDI_FK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('NUDI')
+            and   name  = 'NUDI2_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index NUDI.NUDI2_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('NUDI')
+            and   type = 'U')
+   drop table NUDI
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('NUDI_USLUGE')
+            and   name  = 'NUDI_USLUGE_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index NUDI_USLUGE.NUDI_USLUGE_FK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('NUDI_USLUGE')
+            and   name  = 'NUDI_USLUGE2_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index NUDI_USLUGE.NUDI_USLUGE2_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('NUDI_USLUGE')
+            and   type = 'U')
+   drop table NUDI_USLUGE
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('PODLJEZE_POREZU')
+            and   name  = 'PODLJEZE_POREZU_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index PODLJEZE_POREZU.PODLJEZE_POREZU_FK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('PODLJEZE_POREZU')
+            and   name  = 'PODLJEZE_POREZU2_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index PODLJEZE_POREZU.PODLJEZE_POREZU2_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('PODLJEZE_POREZU')
+            and   type = 'U')
+   drop table PODLJEZE_POREZU
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('POREZ')
+            and   type = 'U')
+   drop table POREZ
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('TIP_KORISNIKA')
+            and   type = 'U')
+   drop table TIP_KORISNIKA
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('TIP_USLUGE')
+            and   type = 'U')
+   drop table TIP_USLUGE
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('TIP_UTISKA')
+            and   type = 'U')
+   drop table TIP_UTISKA
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('TURISTICKA_AGENCIJA')
+            and   type = 'U')
+   drop table TURISTICKA_AGENCIJA
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('TURISTICKA_SEZONA')
+            and   name  = 'PRIPADA_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index TURISTICKA_SEZONA.PRIPADA_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('TURISTICKA_SEZONA')
+            and   type = 'U')
+   drop table TURISTICKA_SEZONA
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('TURISTICKI_ARANZMAN')
+            and   name  = 'IMA_U_PONUDI_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index TURISTICKI_ARANZMAN.IMA_U_PONUDI_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('TURISTICKI_ARANZMAN')
+            and   type = 'U')
+   drop table TURISTICKI_ARANZMAN
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('TURISTICKI_CENTAR')
+            and   name  = 'TURISTICKI_CENTAR_U_NASELJENOM_MJESTU_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index TURISTICKI_CENTAR.TURISTICKI_CENTAR_U_NASELJENOM_MJESTU_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('TURISTICKI_CENTAR')
+            and   type = 'U')
+   drop table TURISTICKI_CENTAR
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('USLUGE')
+            and   name  = 'TIPIZACIJA_USLUGE_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index USLUGE.TIPIZACIJA_USLUGE_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('USLUGE')
+            and   type = 'U')
+   drop table USLUGE
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('USLUGE_KUPLJENOG_ARANZMANA')
+            and   name  = 'USLUGE_KUPLJENOG_ARANZMANA_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index USLUGE_KUPLJENOG_ARANZMANA.USLUGE_KUPLJENOG_ARANZMANA_FK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('USLUGE_KUPLJENOG_ARANZMANA')
+            and   name  = 'USLUGE_KUPLJENOG_ARANZMANA2_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index USLUGE_KUPLJENOG_ARANZMANA.USLUGE_KUPLJENOG_ARANZMANA2_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('USLUGE_KUPLJENOG_ARANZMANA')
+            and   type = 'U')
+   drop table USLUGE_KUPLJENOG_ARANZMANA
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('UTISCI_KORISNIKA')
+            and   name  = 'TIPIZACIJA_UTISKA_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index UTISCI_KORISNIKA.TIPIZACIJA_UTISKA_FK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('UTISCI_KORISNIKA')
+            and   name  = 'UTISAK_NA_ARANZMAN_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index UTISCI_KORISNIKA.UTISAK_NA_ARANZMAN_FK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('UTISCI_KORISNIKA')
+            and   name  = 'KORISNIK_DAJE_UTISAK_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index UTISCI_KORISNIKA.KORISNIK_DAJE_UTISAK_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('UTISCI_KORISNIKA')
+            and   type = 'U')
+   drop table UTISCI_KORISNIKA
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('U_TURISTICKOM_CENTRU')
+            and   name  = 'U_TURISTICKOM_CENTRU_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index U_TURISTICKOM_CENTRU.U_TURISTICKOM_CENTRU_FK
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('U_TURISTICKOM_CENTRU')
+            and   name  = 'U_TURISTICKOM_CENTRU2_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index U_TURISTICKOM_CENTRU.U_TURISTICKOM_CENTRU2_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('U_TURISTICKOM_CENTRU')
+            and   type = 'U')
+   drop table U_TURISTICKOM_CENTRU
+go
+
+/*==============================================================*/
+/* Table: DRZAVA                                                */
+/*==============================================================*/
+create table DRZAVA (
+   DR_IDENTIFIKATOR     char(3)              not null,
+   DR_NAZIV             varchar(50)          not null,
+   DR_HIMNA             VBIN                 not null,
+   DR_GRB               image                not null,
+   constraint PK_DRZAVA primary key (DR_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Table: GODISNJE_DOBA                                         */
+/*==============================================================*/
+create table GODISNJE_DOBA (
+   GD_IDENTIFIKATOR     char(1)              not null,
+   NAZIV                varchar(10)          null,
+   constraint PK_GODISNJE_DOBA primary key (GD_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Table: KORISNICI_ARANZMANA                                   */
+/*==============================================================*/
+create table KORISNICI_ARANZMANA (
+   KOR_IDENTIFIKATOR    int                  not null,
+   KA_IDENTIFIKATOR     int                  not null,
+   constraint PK_KORISNICI_ARANZMANA primary key (KOR_IDENTIFIKATOR, KA_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Index: KORISNICI_ARANZMANA2_FK                               */
+/*==============================================================*/
+create index KORISNICI_ARANZMANA2_FK on KORISNICI_ARANZMANA (
+KA_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Index: KORISNICI_ARANZMANA_FK                                */
+/*==============================================================*/
+create index KORISNICI_ARANZMANA_FK on KORISNICI_ARANZMANA (
+KOR_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Table: KORISNIK                                              */
+/*==============================================================*/
+create table KORISNIK (
+   KOR_IDENTIFIKATOR    int                  not null,
+   TK_IDENTIFIKATOR     char(1)              not null,
+   KOR_IME              varchar(20)          not null,
+   KOR_PREZIME          varchar(30)          not null,
+   KOR_PASOS_LICNAKARTA varchar(15)          not null,
+   KOR_TELEFON          varchar(30)          not null,
+   KOR_ADRESA           varchar(30)          not null,
+   KOR_EMAIL            varchar(30)          null,
+   constraint PK_KORISNIK primary key (KOR_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Index: TIPIZACIJA_KORISNIKA_FK                               */
+/*==============================================================*/
+create index TIPIZACIJA_KORISNIKA_FK on KORISNIK (
+TK_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Table: KUPLJENI_ARANZMAN                                     */
+/*==============================================================*/
+create table KUPLJENI_ARANZMAN (
+   KA_IDENTIFIKATOR     int                  not null,
+   TA_IDENTIFIKATOR     int                  not null,
+   TAR_IDENTIFIKATOR    int                  not null,
+   KA_NAZIV             varchar(30)          not null,
+   CIJENA               decimal(7,2)         not null,
+   constraint PK_KUPLJENI_ARANZMAN primary key (KA_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Index: IZ_PONUDE_FK                                          */
+/*==============================================================*/
+create index IZ_PONUDE_FK on KUPLJENI_ARANZMAN (
+TA_IDENTIFIKATOR ASC,
+TAR_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Table: NASELJENO_MJESTO                                      */
+/*==============================================================*/
+create table NASELJENO_MJESTO (
+   NM_IDENTIFIKATOR     char(3)              not null,
+   DR_IDENTIFIKATOR     char(3)              not null,
+   NM_NAZIV             varchar(50)          not null,
+   NM_ATTRIBUTE_51      varchar(20)          not null,
+   constraint PK_NASELJENO_MJESTO primary key (NM_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Index: NASELJENO_MJESTO_U_DRZAVI_FK                          */
+/*==============================================================*/
+create index NASELJENO_MJESTO_U_DRZAVI_FK on NASELJENO_MJESTO (
+DR_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Table: NUDI                                                  */
+/*==============================================================*/
+create table NUDI (
+   TA_IDENTIFIKATOR     int                  not null,
+   TAR_IDENTIFIKATOR    int                  not null,
+   TS_IDENTIFIKATOR     int                  not null,
+   constraint PK_NUDI primary key (TA_IDENTIFIKATOR, TAR_IDENTIFIKATOR, TS_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Index: NUDI2_FK                                              */
+/*==============================================================*/
+create index NUDI2_FK on NUDI (
+TS_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Index: NUDI_FK                                               */
+/*==============================================================*/
+create index NUDI_FK on NUDI (
+TA_IDENTIFIKATOR ASC,
+TAR_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Table: NUDI_USLUGE                                           */
+/*==============================================================*/
+create table NUDI_USLUGE (
+   U_IDENTIFIKATOR      char(2)              not null,
+   TA_IDENTIFIKATOR     int                  not null,
+   TAR_IDENTIFIKATOR    int                  not null,
+   constraint PK_NUDI_USLUGE primary key (U_IDENTIFIKATOR, TA_IDENTIFIKATOR, TAR_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Index: NUDI_USLUGE2_FK                                       */
+/*==============================================================*/
+create index NUDI_USLUGE2_FK on NUDI_USLUGE (
+TA_IDENTIFIKATOR ASC,
+TAR_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Index: NUDI_USLUGE_FK                                        */
+/*==============================================================*/
+create index NUDI_USLUGE_FK on NUDI_USLUGE (
+U_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Table: PODLJEZE_POREZU                                       */
+/*==============================================================*/
+create table PODLJEZE_POREZU (
+   P_IDENTIFIKATOR      int                  not null,
+   U_IDENTIFIKATOR      char(2)              not null,
+   constraint PK_PODLJEZE_POREZU primary key (P_IDENTIFIKATOR, U_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Index: PODLJEZE_POREZU2_FK                                   */
+/*==============================================================*/
+create index PODLJEZE_POREZU2_FK on PODLJEZE_POREZU (
+U_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Index: PODLJEZE_POREZU_FK                                    */
+/*==============================================================*/
+create index PODLJEZE_POREZU_FK on PODLJEZE_POREZU (
+P_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Table: POREZ                                                 */
+/*==============================================================*/
+create table POREZ (
+   P_IDENTIFIKATOR      int                  not null,
+   P_NAZIV              varchar(30)          not null,
+   P_STOPA              decimal(3,2)         not null,
+   constraint PK_POREZ primary key (P_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Table: TIP_KORISNIKA                                         */
+/*==============================================================*/
+create table TIP_KORISNIKA (
+   TK_IDENTIFIKATOR     char(1)              not null,
+   TK_NAZIV             varchar(20)          not null,
+   constraint PK_TIP_KORISNIKA primary key (TK_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Table: TIP_USLUGE                                            */
+/*==============================================================*/
+create table TIP_USLUGE (
+   TU_IDENTIFIKATOR     char(1)              not null,
+   TU_NAZIV             varchar(30)          not null,
+   constraint PK_TIP_USLUGE primary key (TU_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Table: TIP_UTISKA                                            */
+/*==============================================================*/
+create table TIP_UTISKA (
+   TUT_IDENTIFIKATOR    char(1)              not null,
+   TUT_NAZIV            varchar(30)          not null,
+   constraint PK_TIP_UTISKA primary key (TUT_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Table: TURISTICKA_AGENCIJA                                   */
+/*==============================================================*/
+create table TURISTICKA_AGENCIJA (
+   TA_IDENTIFIKATOR     int                  not null,
+   TA_PIB               varchar(30)          not null,
+   TA_NAZIV             varchar(30)          not null,
+   TA_TELEFON           varchar(30)          null,
+   TA_EMAIL             varchar(30)          null,
+   TA_ADRESA            varchar(30)          null,
+   constraint PK_TURISTICKA_AGENCIJA primary key (TA_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Table: TURISTICKA_SEZONA                                     */
+/*==============================================================*/
+create table TURISTICKA_SEZONA (
+   TS_IDENTIFIKATOR     int                  not null,
+   GD_IDENTIFIKATOR     char(1)              null,
+   TS_NAZIV             varchar(30)          not null,
+   GODINA               numeric(4)           not null,
+   constraint PK_TURISTICKA_SEZONA primary key (TS_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Index: PRIPADA_FK                                            */
+/*==============================================================*/
+create index PRIPADA_FK on TURISTICKA_SEZONA (
+GD_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Table: TURISTICKI_ARANZMAN                                   */
+/*==============================================================*/
+create table TURISTICKI_ARANZMAN (
+   TA_IDENTIFIKATOR     int                  not null,
+   TAR_IDENTIFIKATOR    int                  not null,
+   TAR_NAZIV            varchar(30)          not null,
+   TAR_OD               datetime             not null,
+   TAR_DO               datetime             not null,
+   TAR_CIJENA           decimal(7,2)         not null,
+   TAR_BROJ_OSOBA       numeric(4)           not null,
+   constraint PK_TURISTICKI_ARANZMAN primary key (TA_IDENTIFIKATOR, TAR_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Index: IMA_U_PONUDI_FK                                       */
+/*==============================================================*/
+create index IMA_U_PONUDI_FK on TURISTICKI_ARANZMAN (
+TA_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Table: TURISTICKI_CENTAR                                     */
+/*==============================================================*/
+create table TURISTICKI_CENTAR (
+   TC_IDENTIFIKATOR     char(3)              not null,
+   NM_IDENTIFIKATOR     char(3)              not null,
+   TC_NAZIV             varchar(30)          not null,
+   constraint PK_TURISTICKI_CENTAR primary key (TC_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Index: TURISTICKI_CENTAR_U_NASELJENOM_MJESTU_FK              */
+/*==============================================================*/
+create index TURISTICKI_CENTAR_U_NASELJENOM_MJESTU_FK on TURISTICKI_CENTAR (
+NM_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Table: USLUGE                                                */
+/*==============================================================*/
+create table USLUGE (
+   U_IDENTIFIKATOR      char(2)              not null,
+   TU_IDENTIFIKATOR     char(1)              not null,
+   U_NAZIV              varchar(30)          not null,
+   U_CIJENA             decimal(7,2)         null,
+   constraint PK_USLUGE primary key (U_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Index: TIPIZACIJA_USLUGE_FK                                  */
+/*==============================================================*/
+create index TIPIZACIJA_USLUGE_FK on USLUGE (
+TU_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Table: USLUGE_KUPLJENOG_ARANZMANA                            */
+/*==============================================================*/
+create table USLUGE_KUPLJENOG_ARANZMANA (
+   KA_IDENTIFIKATOR     int                  not null,
+   U_IDENTIFIKATOR      char(2)              not null,
+   constraint PK_USLUGE_KUPLJENOG_ARANZMANA primary key (KA_IDENTIFIKATOR, U_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Index: USLUGE_KUPLJENOG_ARANZMANA2_FK                        */
+/*==============================================================*/
+create index USLUGE_KUPLJENOG_ARANZMANA2_FK on USLUGE_KUPLJENOG_ARANZMANA (
+U_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Index: USLUGE_KUPLJENOG_ARANZMANA_FK                         */
+/*==============================================================*/
+create index USLUGE_KUPLJENOG_ARANZMANA_FK on USLUGE_KUPLJENOG_ARANZMANA (
+KA_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Table: UTISCI_KORISNIKA                                      */
+/*==============================================================*/
+create table UTISCI_KORISNIKA (
+   UK_IDENTIFIKATOR     int                  not null,
+   KOR_IDENTIFIKATOR    int                  not null,
+   KA_IDENTIFIKATOR     int                  null,
+   TUT_IDENTIFIKATOR    char(1)              not null,
+   UK_OCJENA            numeric(2)           not null,
+   UK_NAPOMENA          varchar(150)         null,
+   constraint PK_UTISCI_KORISNIKA primary key (UK_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Index: KORISNIK_DAJE_UTISAK_FK                               */
+/*==============================================================*/
+create index KORISNIK_DAJE_UTISAK_FK on UTISCI_KORISNIKA (
+KOR_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Index: UTISAK_NA_ARANZMAN_FK                                 */
+/*==============================================================*/
+create index UTISAK_NA_ARANZMAN_FK on UTISCI_KORISNIKA (
+KA_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Index: TIPIZACIJA_UTISKA_FK                                  */
+/*==============================================================*/
+create index TIPIZACIJA_UTISKA_FK on UTISCI_KORISNIKA (
+TUT_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Table: U_TURISTICKOM_CENTRU                                  */
+/*==============================================================*/
+create table U_TURISTICKOM_CENTRU (
+   TA_IDENTIFIKATOR     int                  not null,
+   TAR_IDENTIFIKATOR    int                  not null,
+   TC_IDENTIFIKATOR     char(3)              not null,
+   constraint PK_U_TURISTICKOM_CENTRU primary key (TA_IDENTIFIKATOR, TAR_IDENTIFIKATOR, TC_IDENTIFIKATOR)
+)
+go
+
+/*==============================================================*/
+/* Index: U_TURISTICKOM_CENTRU2_FK                              */
+/*==============================================================*/
+create index U_TURISTICKOM_CENTRU2_FK on U_TURISTICKOM_CENTRU (
+TC_IDENTIFIKATOR ASC
+)
+go
+
+/*==============================================================*/
+/* Index: U_TURISTICKOM_CENTRU_FK                               */
+/*==============================================================*/
+create index U_TURISTICKOM_CENTRU_FK on U_TURISTICKOM_CENTRU (
+TA_IDENTIFIKATOR ASC,
+TAR_IDENTIFIKATOR ASC
+)
+go
+
+alter table KORISNICI_ARANZMANA
+   add constraint FK_KORISNIC_KORISNICI_KORISNIK foreign key (KOR_IDENTIFIKATOR)
+      references KORISNIK (KOR_IDENTIFIKATOR)
+go
+
+alter table KORISNICI_ARANZMANA
+   add constraint FK_KORISNIC_KORISNICI_KUPLJENI foreign key (KA_IDENTIFIKATOR)
+      references KUPLJENI_ARANZMAN (KA_IDENTIFIKATOR)
+go
+
+alter table KORISNIK
+   add constraint FK_KORISNIK_TIPIZACIJ_TIP_KORI foreign key (TK_IDENTIFIKATOR)
+      references TIP_KORISNIKA (TK_IDENTIFIKATOR)
+go
+
+alter table KUPLJENI_ARANZMAN
+   add constraint FK_KUPLJENI_IZ_PONUDE_TURISTIC foreign key (TA_IDENTIFIKATOR, TAR_IDENTIFIKATOR)
+      references TURISTICKI_ARANZMAN (TA_IDENTIFIKATOR, TAR_IDENTIFIKATOR)
+go
+
+alter table NASELJENO_MJESTO
+   add constraint FK_NASELJEN_NASELJENO_DRZAVA foreign key (DR_IDENTIFIKATOR)
+      references DRZAVA (DR_IDENTIFIKATOR)
+go
+
+alter table NUDI
+   add constraint FK_NUDI_NUDI_TURISTIC foreign key (TA_IDENTIFIKATOR, TAR_IDENTIFIKATOR)
+      references TURISTICKI_ARANZMAN (TA_IDENTIFIKATOR, TAR_IDENTIFIKATOR)
+go
+
+alter table NUDI
+   add constraint FK_NUDI_NUDI2_TURISTIC foreign key (TS_IDENTIFIKATOR)
+      references TURISTICKA_SEZONA (TS_IDENTIFIKATOR)
+go
+
+alter table NUDI_USLUGE
+   add constraint FK_NUDI_USL_NUDI_USLU_USLUGE foreign key (U_IDENTIFIKATOR)
+      references USLUGE (U_IDENTIFIKATOR)
+go
+
+alter table NUDI_USLUGE
+   add constraint FK_NUDI_USL_NUDI_USLU_TURISTIC foreign key (TA_IDENTIFIKATOR, TAR_IDENTIFIKATOR)
+      references TURISTICKI_ARANZMAN (TA_IDENTIFIKATOR, TAR_IDENTIFIKATOR)
+go
+
+alter table PODLJEZE_POREZU
+   add constraint FK_PODLJEZE_PODLJEZE__POREZ foreign key (P_IDENTIFIKATOR)
+      references POREZ (P_IDENTIFIKATOR)
+go
+
+alter table PODLJEZE_POREZU
+   add constraint FK_PODLJEZE_PODLJEZE__USLUGE foreign key (U_IDENTIFIKATOR)
+      references USLUGE (U_IDENTIFIKATOR)
+go
+
+alter table TURISTICKA_SEZONA
+   add constraint FK_TURISTIC_PRIPADA_GODISNJE foreign key (GD_IDENTIFIKATOR)
+      references GODISNJE_DOBA (GD_IDENTIFIKATOR)
+go
+
+alter table TURISTICKI_ARANZMAN
+   add constraint FK_TURISTIC_IMA_U_PON_TURISTIC foreign key (TA_IDENTIFIKATOR)
+      references TURISTICKA_AGENCIJA (TA_IDENTIFIKATOR)
+go
+
+alter table TURISTICKI_CENTAR
+   add constraint FK_TURISTIC_TURISTICK_NASELJEN foreign key (NM_IDENTIFIKATOR)
+      references NASELJENO_MJESTO (NM_IDENTIFIKATOR)
+go
+
+alter table USLUGE
+   add constraint FK_USLUGE_TIPIZACIJ_TIP_USLU foreign key (TU_IDENTIFIKATOR)
+      references TIP_USLUGE (TU_IDENTIFIKATOR)
+go
+
+alter table USLUGE_KUPLJENOG_ARANZMANA
+   add constraint FK_USLUGE_K_USLUGE_KU_KUPLJENI foreign key (KA_IDENTIFIKATOR)
+      references KUPLJENI_ARANZMAN (KA_IDENTIFIKATOR)
+go
+
+alter table USLUGE_KUPLJENOG_ARANZMANA
+   add constraint FK_USLUGE_K_USLUGE_KU_USLUGE foreign key (U_IDENTIFIKATOR)
+      references USLUGE (U_IDENTIFIKATOR)
+go
+
+alter table UTISCI_KORISNIKA
+   add constraint FK_UTISCI_K_KORISNIK__KORISNIK foreign key (KOR_IDENTIFIKATOR)
+      references KORISNIK (KOR_IDENTIFIKATOR)
+go
+
+alter table UTISCI_KORISNIKA
+   add constraint FK_UTISCI_K_TIPIZACIJ_TIP_UTIS foreign key (TUT_IDENTIFIKATOR)
+      references TIP_UTISKA (TUT_IDENTIFIKATOR)
+go
+
+alter table UTISCI_KORISNIKA
+   add constraint FK_UTISCI_K_UTISAK_NA_KUPLJENI foreign key (KA_IDENTIFIKATOR)
+      references KUPLJENI_ARANZMAN (KA_IDENTIFIKATOR)
+go
+
+alter table U_TURISTICKOM_CENTRU
+   add constraint FK_U_TURIST_U_TURISTI_TURISTIC foreign key (TA_IDENTIFIKATOR, TAR_IDENTIFIKATOR)
+      references TURISTICKI_ARANZMAN (TA_IDENTIFIKATOR, TAR_IDENTIFIKATOR)
+go
+
+alter table U_TURISTICKOM_CENTRU
+   add constraint FK_U_TURIST_U_TURISTI_TURISTIC foreign key (TC_IDENTIFIKATOR)
+      references TURISTICKI_CENTAR (TC_IDENTIFIKATOR)
+go

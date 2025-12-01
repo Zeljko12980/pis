@@ -1,0 +1,21 @@
+CREATE PROC evidUtakmice
+AS
+BEGIN
+	SELECT i.ime AS 'Igrac', u.[O utakmici], u.[Datum odrzavanja], u.Prekid, k.naziv,
+	SUM("Broj postignutih golova") 
+	FROM Utakmica u
+	INNER JOIN [Klubovi i Utakmice] kiu
+	ON kiu.[ID utakmice] = i.[ID utakmice]
+	INNER JOIN Klubovi k
+	ON k.[ID kluba] = kiu.[ID kluba]
+	INNER JOIN [Igraci na utakmicama] inu
+	ON u.[ID utakmice] = inu.[ID utakmice]
+	INNER JOIN Igrac i
+	ON i.[ID kluba]= inu.[ID kluba]
+	AND i.[Broj igraca]= inu.[Broj igraca]	
+	AND i.[ID pozicije] = inu.[ID pozicije]	
+	INNER JOIN Statistika s
+	ON s.[ID statistike] = inu.[ID statistike]
+	GROUP BY (i.ime, u.[O utakmici], u.[Datum odrzavanja], u.Prekid, k.naziv)
+END
+

@@ -1,0 +1,8 @@
+CREATE PROCEDURE [dbo].[evidencija_klubova_igraca]
+	@id_igraca int
+AS
+BEGIN
+	SELECT  ime,prezime,ki.id_igraca,naziv_kluba  FROM KluboviIgraca ki INNER JOIN  Klub k ON 
+	k.id_klub=ki.id_klub INNER JOIN Igrač i ON i.id_igraca=ki.id_igraca WHERE @id_igraca=ki.id_igraca
+
+END

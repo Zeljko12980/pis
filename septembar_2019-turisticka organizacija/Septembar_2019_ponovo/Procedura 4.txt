@@ -1,0 +1,20 @@
+CREATE PROC proc_cetiri
+@drzava_id int,
+@godina varchar(4)
+AS
+BEGIN
+SELECT ta.[Naziv aranzmana], eka.Ocjena, ta.Sezona
+FROM [Turisticki aranzman] ta
+INNER JOIN [Evidencija korisnika aranzmana] eka
+ON eka.[ID aranzmana] = ta.[ID aranzmana]
+INNER JOIN Agencija a
+ON a.[ID agencije] = ta.[ID agencije]
+INNER JOIN Opstina o
+ON o.[ID opstine] = a.[ID opstine]
+INNER JOIN Drzava d
+ON d.[ID drzave] = o.[ID drzave]
+AND d.[ID drzave] = @drzava_id
+WHERE YEAR(ta.Datum) = @godina
+
+ORDER BY ta.Sezona, eka.Ocjena 
+END

@@ -1,0 +1,20 @@
+CREATE Proc ponuda
+@sezona varchar(20)
+@godina varchar(4)
+AS
+BEGIN
+SELECT ta.[Naziv aranzmana], ta.Cijena, tc.Centar, tm.Mjesto, d.Drzava, ta.datum, ta.[Broj dana]
+FROM [Turisticki aranzman] ta
+INNER JOIN [Turisticki centar] tc
+ON tc.[ID centra] = ta.[ID centra]
+INNER JOIN [Turisticka mjesta] tm
+ON tm.[ID mjesta] = tc.[ID mjesta]
+INNER JOIN Agencija a
+ON a.[ID agencije] = ta.[ID agencije]
+INNER JOIN Opstina o
+ON o.[ID opstine] = a.[ID opstine]
+INNER JOIN Drzava d
+ON d.[ID drzave] = o.[ID drzave]
+WHERE ta.Sezona = @sezona
+AND ta.Datum = YEAR(@godina)
+AND ta.[Broj mjesta] > 0

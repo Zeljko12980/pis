@@ -1,0 +1,16 @@
+CREATE PROC formiranjeCjenovnika
+@id_kursa int
+AS
+BEGIN
+	SELECT Jezik.jezik  AS  "Jezik",
+	(tk.br_casova *  tk.cijena)  AS "Cijena casova",
+	(tk.br_fono_lab *  tk.cijena)  AS "Cijena lab vjezbi",
+	(tk.br_casova *  tk.cijena + tk.br_fono_lab *  tk.cijena)  AS "Ukupna cijena"
+	FROM [Tipovi kurseva] tk
+	INNER JOIN Jezik j
+	ON j.sifra_jezika = tk.sifra_jezika
+	WHERE tk.id_kursa = @id_kursa
+
+END
+
+ 

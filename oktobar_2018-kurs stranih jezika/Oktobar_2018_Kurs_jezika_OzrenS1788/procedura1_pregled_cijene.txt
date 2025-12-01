@@ -1,0 +1,14 @@
+CREATE PROCEDURE [dbo].[pregled_cijene_kursa_jezika]
+@popust int,
+@kurs_id int
+AS
+BEGIN
+
+SELECT Jezik,Nivo,
+		(jedinicna_cijena_labova*broj_lab_vjezbi) AS "Ukupna cijena casova",
+		(jedinicnna_cijena_casa*broj_casova_kursa) AS "Ukupna cijena labova",
+		(jedinicna_cijena_labova*broj_lab_vjezbi+jedinicnna_cijena_casa*broj_casova_kursa) AS "Ukupna cijena bez popusta",
+		(jedinicna_cijena_labova*broj_lab_vjezbi+jedinicnna_cijena_casa*broj_casova_kursa)-(jedinicna_cijena_labova*broj_lab_vjezbi+jedinicnna_cijena_casa*broj_casova_kursa)*@popust AS "Ukupna cijena bez popusta"
+FROM Jezik  j INNER JOIN Kurs k ON j.id_jezik=k.id_jezik WHERE k.id_kursa=@kurs_id
+
+END

@@ -1,0 +1,26 @@
+CREATE PROC brojGolovaPoIgracima
+@start DATE,
+@end DATE
+AS
+BEGIN
+	SELECT i.ime, i.prezime, s.[Broj postignutih golova], p.[Naziv pozicije]
+	FROM Igraci i
+	INNER JOIN [Igraci na utakmicama] inu
+	ON i.[ID kluba] = int.[ID kluba]
+	AND i.[ID pozicije] = int.[ID pozicije] 
+	AND i.[Broj igraca] = int.[Broj igraca]
+	INNER JOIN Utakmica u
+	ON inu.[ID utakmice] = u.[ID utakmice]
+	INNER JOIN Statistika s
+	ON s.[ID statistike] = inu.[ID statistike]
+	INNER JOIN Pozicija p
+	ON i.[ID pozicije] = p.[ID pozicije]
+	INNER JOIN [Istorija igraca] ii
+	ON i.[ID pozicije] = ii.[ID pozicije]
+	AND i.[ID kluba = ii.[ID kluba] 
+	AND i.[Broj igraca] = int.[Broj igraca]
+	WHERE @start > u.[Datum odrzavanja]
+	AND @end < u.[Datum odrzavanja]
+	AND ii.Od >= u.[Datum odrzavanja]
+	AND ii.Do <= u.[Datum odrzavanja]
+END

@@ -1,0 +1,17 @@
+CREATE PROC listaKoristenihUsluga
+@pocetak DATE,
+@kraj DATE
+AS
+BEGIN
+SELECT na.JMBG, na.Ime, na.Prezime, su.[Naziv usluge],
+COUNT(ua.[ID usluge]),
+ SUM(Osnovica) AS "Bez poreza", SUM(Ukupno) AS "Sa porezom"
+FROM [Narucivanje aranzmanja] naran
+INNER JOIN [Nosioc aranzmana] na
+ON na.JMBG = naran.JMBG
+INNER JOIN [Usluge aranzmana] ua
+ON ua.[ID usluge] = naran.[ID usluge]
+INNER JOIN [Spisak usluga] su
+ON su.[ID usluge] = ua.[ID usluge]
+GROUP BY  na.JMBG, na.Ime, na.Prezime, su.[Naziv usluge]
+END

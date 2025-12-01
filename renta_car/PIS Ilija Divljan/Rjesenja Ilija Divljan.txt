@@ -1,0 +1,104 @@
+Student: Ilija Divljan
+Broj Indeksa: 1280
+
+
+f) Power designer
+*************************************************************************************************************************
+g) Power designer
+*************************************************************************************************************************
+h) Power designer, objasnjenja kljuceva u notes
+*************************************************************************************************************************
+i) Power designer
+
+U power designer-u su kreiran logicki i fizicki model baze podataka.
+U tekstu zadatka pod i) je naglaseno da treba generisati logicku strukturu i objasniti potencijalno prosirenje
+kljuceva. Pretpostavljam da je greska ovo "logicki" i da se odnosi na "fizicki" model.
+
+Dakle vecina sistema za upravljanje bazama podataka kreiraju indekse po defaultu za ogranicenja tipa
+Primary i Unique. Tako da su ti indeksi vec kreirani. Sam korisnik nije svjestan postojanja indeksa, vec
+oni samo ubrzavaju operacije pretrazivanja i sortiranja. U bazi podataka se moraju pamtiti svi indeksi bez
+obzira koliko cesto se oni koriste, i prilikom izvrsavanja svakog upita prolazi se kroz indekse i gleda da li 
+oni mogu ubrzati datu operaciju. 
+
+Prema tome da bi se postigla veca efikasnost pri pretrazivanju baze potrebno je izbaciti sve indekse koji se 
+malo ili nikako ne koriste. U ovom slucaju to bi bili indeksi tabela koje se malo pretrazuju i nemaju veliki
+broj redova, takve tabele su na primjer Agencija, Zaposleni, Tip modela, Tip mjesta i slicno.
+
+Sa druge strane ocito je da ce za ovakav sistem najzanimljivije biti vodjenje evidencije, tj. tabela Iznajmljeni automobili,
+u ovoj tabeli bi bilo korisno prosiriti indeksnu strukturu kako bi se mogla voditi
+evidencija o iznajmljivanju vozila u odredjenim vremenskim intervalima i slicno. U tu svrhu bi kreirali indekse
+za kolone Od i Do kako bi ubrzali to pretrazivanje.
+
+Naravno sa indeksima treba biti vrlo oprezan jer jedan indeks moze ubrzati jedan upit a drugi znacajno usporiti.
+
+
+*************************************************************************************************************************
+
+j) Napisati stored proceduru, koja omogucava formiranje rezulutujuceg skupa podataka, koji treba da posluze kao podloga
+za formiranje izvjestaja o koriscenju usluga
+u zadatom datumskom intervalu, po klijentima i vrstama usluga
+sa podacima o broju pruzenih usluga po vrsti, ukupnom iznosu bez poreza i iznosom sa obracunatim porezom.
+
+
+(MS SQL SERVER 2008)
+
+CREATE PROCEDURE generateResultData
+
+	//Ovi parametri su obavezni da se proslijede proceduri
+	@agencija int,
+	@donja_granica date,
+	@gornja_granica date,
+
+	
+	//Ovi parametri nisu obavezni da se proslijede proceduri.
+	//Npr ako se ne proslijedi ID Klijenta selektovace se svi klijenti.
+
+	@klijent_id = null,
+	@vrsta_usluga_id = null
+
+//Prva varijanta procedure da je kreiramo tako da pokupimo samo podatke iz tabele Iznajmljeni automobili
+
+AS
+BEGIN
+
+	SELECT * 
+	FROM IZNAJMLJENI_AUTOMOBILI
+	WHERE
+		
+		IZNAJMLJENI_AUTOMOBILI.IA_OD BETWEEN (@donja_granica) AND (@gornja_granica)
+	AND	(@klijent_id	IS	NULL	OR	(IZNAJMLJENI_AUTOMOBILI.KL_IDENTIFIKATOR_KLIJENTA = @klijent_id))
+	AND	(@vrsta_usluga_id	IS	NULL	OR	(IZNAJMLJENI_AUTOMOBILI.TU_TIP_USLUGE = @vrsta_usluga_id))
+
+END
+GO
+
+
+
+//Druga varijanta procedure koja koristi i JOIN-ove i daje kompleksniji set podataka
+AS
+BEGIN
+
+	SELECT 
+		IZNAJMLJENI_AUTOMOBILI.IA_IDENTIFKATOR_UGOVORA,
+		IZNAJMLJENI_AUTOMOBILI.KL_IDENTIFIKATOR_KLIJENTA,
+		IZNAJMLJENI_AUTOMOBILI.VO_BROJ_VOZILA,
+		IZNAJMLJENI_AUTOMOBILI.IA_BROJ_PREDJENIH_KM,
+		IZNAJMLJENI_AUTOMOBILI.IA_CIJENA_BEZ_POREZA,
+		IZNAJMLJENI_AUTOMOBILI.IA_CIJENA_SA_POREZOM,
+		TIP_MODELA.PO_NAZIV
+		//Sada se ovdje mogu kombinovati proizvoljni podaci
+		
+
+	FROM
+	(
+		SELECT *  FROM IZNAJMLJENI_AUTOMOBILI WHERE
+		
+			IZNAJMLJENI_AUTOMOBILI.IA_OD BETWEEN (@donja_granica) AND (@gornja_granica)
+		AND	(@klijent_id	IS	NULL	OR	(IZNAJMLJENI_AUTOMOBILI.KL_IDENTIFIKATOR_KLIJENTA = @klijent_id))
+		AND	(@vrsta_usluga_id	IS	NULL	OR	(IZNAJMLJENI_AUTOMOBILI.TU_TIP_USLUGE = @vrsta_usluga_id))
+	) AS IZNAJMLJENI_AUTOMOBILI
+	INNER JOIN TIP_MODELA
+	ON IZNAJMLJENI_AUTOMOBILI.TIP_MODELA = TIP_MODELA.TIP_MODELA
+	//Takodje ovdje se sada moze kombinovati proizvoljan broj tabela 
+END
+GO

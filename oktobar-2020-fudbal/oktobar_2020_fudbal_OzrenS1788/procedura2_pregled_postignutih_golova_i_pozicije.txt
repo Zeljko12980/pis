@@ -1,0 +1,10 @@
+CREATE PROCEDURE [dbo].[evidencija_postignutih_golova]
+	@pocetakDatuma DATE,
+	@krajDatuma DATE
+AS
+BEGIN
+	SELECT  postigao_golova,p.naziv_pozicije  FROM Statistika_igraca s INNER JOIN nalaze_pozicije  np ON
+	np.id_igraca=s.id_igraca INNER JOIN Pozicije p ON p.id_pozicija=np.id_pozicija INNER JOIN Utakmica u ON
+	s.id_utakmica=u.id_utakmica
+	WHERE u.datum_i_vrijeme_utakmice BETWEEN @pocetakDatuma AND @krajDatuma
+END
